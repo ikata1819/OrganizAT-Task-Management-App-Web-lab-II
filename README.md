@@ -1,98 +1,225 @@
+# OrganizAT
 
+A full-stack task management application built with Node.js, Express, React, and MySQL.
 
-# OrganizAT ✅
+## Project Description
 
-A simple task management app built step by step in CSE 362 Web Programming II Lab
+OrganizAT is a comprehensive task management system developed as part of CSE 362 Web Programming II LAB. It features a RESTful API backend with MySQL database integration and a React frontend for seamless task organization and management.
 
-OrganizAT is a learning project where we gradually build a task management system while exploring modern web development. Each lab adds a new concept or feature until the app is fully functional.
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+- MySQL (v8.0 or higher)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <your-repository-url>
+   cd organizat
+   ```
+
+2. **Install Node.js and npm**
+   - Download and install from [nodejs.org](https://nodejs.org/)
+   - Verify installation:
+     ```bash
+     node --version
+     npm --version
+     ```
+
+3. **Install MySQL**
+   - Download and install MySQL from [mysql.com](https://www.mysql.com/)
+   - Configure MySQL with a root password
+   - Verify MySQL is running
+
+4. **Set up the Express server**
+   ```bash
+   npm init -y
+   npm install express mysql2
+   ```
+
+5. **Configure MySQL database**
+   - Create a database for the project:
+     ```sql
+     CREATE DATABASE organizat_db;
+     USE organizat_db;
+     ```
+
+6. **Install additional dependencies** (as needed throughout the labs)
+   ```bash
+   npm install sequelize
+   npm install jsonwebtoken bcrypt
+   npm install cors
+   ```
+
+## Running the Application
+
+1. **Start MySQL server**
+   - Ensure MySQL service is running
+
+2. **Start the Express backend**
+   ```bash
+   node server.js
+   ```
+   - Server will run on `http://localhost:3000`
+
+3. **Start the React frontend** (when implemented)
+   ```bash
+   cd client
+   npm start
+   ```
+   - Frontend will run on `http://localhost:3000` (or alternative port)
+
+## API Endpoints
+
+### Base URL: `http://localhost:3000`
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | Welcome message / API info |
+| GET | `/health` | Health check endpoint |
+| GET | `/tasks` | Retrieve all tasks |
+| GET | `/task/:id` | Retrieve a specific task by ID |
+| POST | `/tasks` | Create a new task |
+| PUT | `/task/:id` | Update a specific task |
+| DELETE | `/task/:id` | Delete a specific task |
+
+## Lab Progress Checklist
+
+- [ ] **LAB 1**: Initialize Task Management Project and Set Up Node.js Express Server
+  - [ ] Install Node.js and npm
+  - [ ] Set up an Express server
+  - [ ] Create basic routes
+  - [ ] Implement a basic GET tasks route
+  - [ ] Test the route using Postman
+
+- [ ] **LAB 2**: Develop RESTful API Foundations for Task Creation and Retrieval
+  - [ ] Create RESTful GET route for tasks
+  - [ ] Create RESTful POST route for tasks
+  - [ ] Implement route to get task by ID
+  - [ ] Implement basic JSON responses
+  - [ ] Add error handling for invalid requests
+
+- [ ] **LAB 3**: Integrate MySQL Database for Basic Task Storage and Operations
+  - [ ] Install MySQL
+  - [ ] Configure mysql2 package
+  - [ ] Set up connection to MySQL
+  - [ ] Write raw SQL queries for task CRUD operations
+  - [ ] Build a GET route to retrieve tasks from the database
+
+- [ ] **LAB 4**: Basic API and Database Integration Test
+  - [ ] Build a POST endpoint for tasks
+  - [ ] Connect API to MySQL database
+  - [ ] Test task creation and retrieval using Postman
+
+- [ ] **LAB 5**: Implement Sequelize ORM for Task Model Management
+  - [ ] Install and set up Sequelize
+  - [ ] Define a Task model
+  - [ ] Create migrations for task table
+  - [ ] Implement CRUD operations using Sequelize ORM
+  - [ ] Test ORM integration
+
+- [ ] **LAB 6**: Advance API with Full CRUD Operations and Input Validation
+  - [ ] Add DELETE route for removing tasks
+  - [ ] Implement input validation with express-validator
+  - [ ] Test full CRUD functionality
+
+- [ ] **LAB 7**: Set Up React Frontend for Task Display
+  - [ ] Initialize a React app using Vite
+  - [ ] Create Task List component
+  - [ ] Create TaskCard component
+  - [ ] Use Axios to fetch tasks from API
+  - [ ] Display tasks in the frontend
+
+- [ ] **LAB 8**: Enable Frontend CRUD Operations with Form Handling
+  - [ ] Implement form for creating tasks
+  - [ ] Implement form for editing tasks
+  - [ ] Handle API calls for CRUD operations
+  - [ ] Add client-side validation
+
+- [ ] **LAB 9**: Full-Stack Feature Integration Test
+  - [ ] Add API endpoints for categories
+  - [ ] Update frontend UI to display categories
+  - [ ] Connect frontend and backend for category functionality
+  - [ ] Test category feature with Postman and UI
+
+- [ ] **LAB 10**: Implement User Authentication Using JWT
+  - [ ] Implement register route
+  - [ ] Implement login route
+  - [ ] Set up JWT authentication
+  - [ ] Protect task routes with JWT middleware
+  - [ ] Create a context or hook for user in frontend
+
+- [ ] **LAB 11**: Manage Application State in React Using Context API
+  - [ ] Manage task state in frontend
+  - [ ] Manage user state in frontend
+  - [ ] Ensure state updates reflect API changes
+  - [ ] Add undo priority feature to backend model
+
+- [ ] **LAB 12**: Add Advanced Task Features Like Priority and Due Dates
+  - [ ] Update API to handle priority and due dates
+  - [ ] Update frontend UI to display priority and due dates
+  - [ ] Implement sorting and filtering by priority and due date
+
+- [ ] **LAB 13**: Develop Unit Tests for Backend and Frontend Components
+  - [ ] Write test API route for unit testing
+  - [ ] Set up Jest for backend unit tests (Task Manager, Route Library)
+  - [ ] Verify test coverage for critical functionality
+  - [ ] Add a new feature such as task status field
+
+- [ ] **LAB 14**: Feature Extension and Testing Validation
+  - [ ] Update backend model and API for the feature
+  - [ ] Update frontend UI to manage the feature
+  - [ ] Write comprehensive tests
+
+## Technologies Used
+
+- **Backend**: Node.js, Express.js
+- **Database**: MySQL, Sequelize ORM
+- **Frontend**: React, Vite
+- **Authentication**: JWT (JSON Web Tokens)
+- **HTTP Client**: Axios
+- **Testing**: Jest
+- **Validation**: Express-validator
+
+## Project Structure
+
+```
+organizat/
+├── server.js           # Express server entry point
+├── models/             # Sequelize models
+├── routes/             # API route handlers
+├── middleware/         # Custom middleware (auth, validation)
+├── config/             # Configuration files
+├── client/             # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   └── App.jsx
+│   └── package.json
+├── tests/              # Test files
+├── package.json
+└── README.md
+```
+
+## Contributing
+
+This is an academic project for CSE 362 Web Programming II LAB.
+
+## License
+
+This project is created for educational purposes.
+
+## Author
+
+```
+Anika Tasnim 
+JU CSE 21-22
+```
 
 ---
 
-## Lab Progress (Quick Checklist)
-
-* [x] Lab 1: Intro to Node.js, npm, Express, API testing with Postman
-* [ ] Lab 2: RESTful API for creating and retrieving tasks
-* [ ] Lab 3: MySQL database setup and storage operations
-* [ ] Lab 4: API and database integration test
-* [ ] Lab 5: Sequelize ORM and task model
-* [ ] Lab 6: Full CRUD + input validation
-* [ ] Lab 7: React frontend setup, display tasks
-* [ ] Lab 8: Frontend CRUD with forms
-* [ ] Lab 9: Categories backend + UI update
-* [ ] Lab 10: User authentication (JWT)
-* [ ] Lab 11: React state management
-* [ ] Lab 12: Advanced task features (priority, due dates)
-* [ ] Lab 13: Testing (backend and frontend)
-* [ ] Lab 14: Final fixes and improvements
-
----
-
-## Learning Roadmap (Details)
-
-### ✅ Lab 1: Getting Started
-
-* Introduction to Node.js and npm
-* Create the basic project structure
-* Set up Express server
-* Test a simple API route using Postman
-
-### 🔄 Next Steps
-
-**Lab 2 — RESTful API Basics**
-Build API routes to create and fetch tasks
-
-**Lab 3 — Database Integration**
-Connect to MySQL
-Store and retrieve tasks from the database
-
-**Lab 4 — API + Database Testing**
-Test backend operations using Postman
-
-**Lab 5 — Sequelize ORM**
-Define models and migrations
-Improve database handling
-
-**Lab 6 — Full CRUD**
-Add update and delete operations
-Handle input validation
-
-**Lab 7 — Frontend Setup**
-Start building the UI with React
-Display tasks from API
-
-**Lab 8 — Form Handling**
-Add forms to create and manage tasks
-
-**Lab 9 — Categories Support**
-Add task categories in backend and UI
-
-**Lab 10 — Authentication**
-Create login and register system using JWT
-
-**Lab 11 — State Management**
-Manage tasks and user state in React
-
-**Lab 12 — Advanced Features**
-Task priority and due dates
-
-**Lab 13 — Testing**
-Test frontend and backend features
-
-**Lab 14 — Final Touches**
-Fix issues
-Small improvements
-Final version ready
-
----
-
-## Goal
-
-By the end of the course, OrganizAT will support:
-
-* User accounts
-* Task organization
-* Priorities and deadlines
-* Categories
-* A clean and usable web interface
-
----
+**Last Updated**: October 30, 2025
