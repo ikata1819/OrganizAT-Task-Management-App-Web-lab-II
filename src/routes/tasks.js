@@ -45,14 +45,16 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const task = tasks.find((t) => t.id === id);
+  const id = Number(req.params.id);
 
-  if (task) {
-    res.json(task);
-  } else {
-    res.status(404).json({ error: "Task not found" });
+  if (isNaN(id) || id <= 0) {
+    return res.status(400).json({ error: "Invalid ID format" });
   }
+  const task = tasks.find((t) => t.id === id);
+  if (!task) {
+    return res.status(404).json({ error: "Task not found" });
+  }
+  res.json(task);
 });
 
 module.exports = router;
