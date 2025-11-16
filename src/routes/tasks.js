@@ -1,60 +1,41 @@
 const express = require("express");
 const router = express.Router();
 
-
-const tasks = [
-  {
-    id: 1,
-    title: "Install Node.js and npm",
-    completed: false,
-    priority: "Low",
-    createdAt: new Date(),
-  },
-  {
-    id: 2,
-    title: "Set up an Express server",
-    completed: false,
-    priority: "Low",
-    createdAt: new Date(),
-  },
-  {
-    id: 3,
-    title: "Create basic routes",
-    completed: false,
-    priority: "Medium",
-    createdAt: new Date(),
-  },
-  {
-    id: 4,
-    title: "Implement a basic GET tasks route",
-    completed: false,
-    priority: "Medium",
-    createdAt: new Date(),
-  },
-  {
-    id: 5,
-    title: "Test the route using Postman",
-    completed: false,
-    priority: "High",
-    createdAt: new Date(),
-  },
-];
-
 router.get("/", (req, res) => {
-  res.json(tasks);
+  const tasks = req.app.locals.tasks;
+  res.status(200).json({
+    success: true,
+    data: tasks,
+  });
 });
 
-router.get("/:id", (req, res) => {
-  const id = Number(req.params.id);
+router.post("/", (req, res) => {
 
-  if (isNaN(id) || id <= 0) {
-    return res.status(400).json({ error: "Invalid ID format" });
+  try {
+    const { title } = req.body;
+    if (!title || typeof title !== "string" || title.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: "Title is required and must be a non-empty string",
+      });
+    }
+    const newTask = {
+      id: Date.now(),
+      title: title.trim(),
+      completed: false,
+    };
+    const tasks = req.app.locals.tasks;
+    tasks.push(newTask);
+    res.status(201).json({
+      success: true,
+      data: newTask,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: "Internal server error",
+    });
   }
-  const task = tasks.find((t) => t.id === id);
-  if (!task) {
-    return res.status(404).json({ error: "Task not found" });
-  }
-  res.json(task);
 });
 
 module.exports = router;
