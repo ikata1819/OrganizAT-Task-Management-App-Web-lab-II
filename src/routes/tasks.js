@@ -5,12 +5,15 @@ const db = require('../config/db');
 // GET all tasks with pagination
 router.get('/', async (req, res) => {
   try {
+    const q_title = req.query.q;
     const page = parseInt(req.query.page) || 1;
     let limit = parseInt(req.query.limit) || 10;
     if (limit > 50) limit = 50;
 
     const offset = (page - 1) * limit;
-
+    if(!q_title){
+      
+    
     const [rows] = await db.query(
       'SELECT * FROM tasks ORDER BY created_at DESC LIMIT ? OFFSET ?',
       [limit, offset]
@@ -27,6 +30,19 @@ router.get('/', async (req, res) => {
       limit,
       data: rows
     });
+  }
+  
+else {
+  const search = `%${q_title}%`;
+
+  const [rows] = await db.query(
+    'SELECT * FROM tasks WHERE title LIKE ? ORDER BY created_at DESC',
+    [search]
+  );
+
+  res.json(rows);
+}
+
 
   } catch (err) {
     console.error(err);
