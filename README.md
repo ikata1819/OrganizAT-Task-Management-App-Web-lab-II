@@ -80,7 +80,6 @@ OrganizAT is a comprehensive task management system developed as part of CSE 362
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/` | Welcome message / API info |
-| GET | `/health` | Health check endpoint |
 | GET | `/tasks` | Retrieve all tasks |
 | GET | `/task/:id` | Retrieve a specific task by ID |
 | POST | `/tasks` | Create a new task |
@@ -89,26 +88,26 @@ OrganizAT is a comprehensive task management system developed as part of CSE 362
 
 ## Lab Progress Checklist
 
-- [ ] **LAB 1**: Initialize Task Management Project and Set Up Node.js Express Server
-  - [ ] Install Node.js and npm
-  - [ ] Set up an Express server
-  - [ ] Create basic routes
-  - [ ] Implement a basic GET tasks route
-  - [ ] Test the route using Postman
+- [x] **LAB 1**: Initialize Task Management Project and Set Up Node.js Express Server
+  - [x] Install Node.js and npm
+  - [x] Set up an Express server
+  - [x] Create basic routes
+  - [x] Implement a basic GET tasks route
+  - [x] Test the route using Postman
 
-- [ ] **LAB 2**: Develop RESTful API Foundations for Task Creation and Retrieval
-  - [ ] Create RESTful GET route for tasks
-  - [ ] Create RESTful POST route for tasks
-  - [ ] Implement route to get task by ID
-  - [ ] Implement basic JSON responses
-  - [ ] Add error handling for invalid requests
+- [x] **LAB 2**: Develop RESTful API Foundations for Task Creation and Retrieval
+  - [x] Create RESTful GET route for tasks
+  - [x] Create RESTful POST route for tasks
+  - [x] Implement route to get task by ID
+  - [x] Implement basic JSON responses
+  - [x] Add error handling for invalid requests
 
-- [ ] **LAB 3**: Integrate MySQL Database for Basic Task Storage and Operations
-  - [ ] Install MySQL
-  - [ ] Configure mysql2 package
-  - [ ] Set up connection to MySQL
-  - [ ] Write raw SQL queries for task CRUD operations
-  - [ ] Build a GET route to retrieve tasks from the database
+- [x] **LAB 3**: Integrate MySQL Database for Basic Task Storage and Operations
+  - [x] Install MySQL
+  - [x] Configure mysql2 package
+  - [x] Set up connection to MySQL
+  - [x] Write raw SQL queries for task CRUD operations
+  - [x] Build a GET route to retrieve tasks from the database
 
 - [ ] **LAB 4**: Basic API and Database Integration Test
   - [ ] Build a POST endpoint for tasks
