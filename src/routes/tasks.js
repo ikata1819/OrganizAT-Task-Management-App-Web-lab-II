@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
+const logger = require('../logs/logger');
 
 router.get("/", async (req, res) => {
   try {
@@ -39,7 +40,7 @@ router.get("/", async (req, res) => {
       res.json(rows);
     }
   } catch (err) {
-    console.error(err);
+    logger.error(err.stack || err.message || err);
     res.status(500).json({ error: "Database error" });
   }
 });
@@ -51,7 +52,8 @@ router.get("/deleted", async (req, res) => {
     );
     res.json(rows);
   } catch (err) {
-    console.error(err);
+    logger.error(err.stack || err.message || err);
+
     res.status(500).json({ error: "Database error" });
   }
 });
@@ -69,7 +71,8 @@ router.post("/", async (req, res) => {
     ]);
     res.status(201).json(newTask[0]);
   } catch (err) {
-    console.error(err);
+    logger.error(err.stack || err.message || err);
+
     res.status(500).json({ error: "Failed to create task" });
   }
 });
@@ -107,7 +110,8 @@ router.put("/:id", async (req, res) => {
     const [updated] = await db.query("SELECT * FROM tasks WHERE id = ?", [id]);
     res.json(updated[0]);
   } catch (err) {
-    console.error(err);
+    logger.error(err.stack || err.message || err);
+
     res.status(500).json({ error: "Failed to update task" });
   }
 });
@@ -126,7 +130,8 @@ router.delete("/:id", async (req, res) => {
         .json({ error: "Task not found or already deleted" });
     res.status(204).end();
   } catch (err) {
-    console.error(err);
+    logger.error(err.stack || err.message || err);
+
     res.status(500).json({ error: "Failed to delete task" });
   }
 });
@@ -145,7 +150,8 @@ router.put("/:id/restore", async (req, res) => {
     const [task] = await db.query("SELECT * FROM tasks WHERE id = ?", [id]);
     res.json(task[0]);
   } catch (err) {
-    console.error(err);
+    logger.error(err.stack || err.message || err);
+
     res.status(500).json({ error: "Failed to restore task" });
   }
 });
