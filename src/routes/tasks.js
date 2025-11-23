@@ -1,122 +1,152 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const db = require('../config/db');
+const db = require("../config/db");
 
-// GET all tasks with pagination
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const q_title = req.query.q;
     const page = parseInt(req.query.page) || 1;
     let limit = parseInt(req.query.limit) || 10;
     if (limit > 50) limit = 50;
-
     const offset = (page - 1) * limit;
-    if(!q_title){
-      
-    
-    const [rows] = await db.query(
-      'SELECT * FROM tasks ORDER BY created_at DESC LIMIT ? OFFSET ?',
-      [limit, offset]
-    );
 
-    const [[countResult]] = await db.query('SELECT COUNT(*) AS total FROM tasks');
-    const totalTasks = countResult.total;
-    const totalPages = Math.ceil(totalTasks / limit);
+    if (!q_title) {
+      const [rows] = await db.query(
+        "SELECT * FROM tasks WHERE deleted_at IS NULL ORDER BY created_at DESC, id DESC LIMIT ? OFFSET ?",
+        [limit, offset]
+      );
 
-    res.json({
-      totalTasks,
-      totalPages,
-      currentPage: page,
-      limit,
-      data: rows
-    });
-  }
-  
-else {
-  const search = `%${q_title}%`;
+      const [[countResult]] = await db.query(
+        "SELECT COUNT(*) AS total FROM tasks WHERE deleted_at IS NULL"
+      );
 
-  const [rows] = await db.query(
-    'SELECT * FROM tasks WHERE title LIKE ? ORDER BY created_at DESC',
-    [search]
-  );
+      const totalTasks = countResult.total;
+      const totalPages = Math.ceil(totalTasks / limit);
 
-  res.json(rows);
-}
-
-
+      res.json({
+        totalTasks,
+        totalPages,
+        currentPage: page,
+        limit,
+        data: rows,
+      });
+    } else {
+      const search = `%${q_title}%`;
+      const [rows] = await db.query(
+        "SELECT * FROM tasks WHERE title LIKE ? AND deleted_at IS NULL ORDER BY created_at DESC, id DESC",
+        [search]
+      );
+      res.json(rows);
+    }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Database error' });
+    res.status(500).json({ error: "Database error" });
   }
 });
 
-
-// POST create new task
-router.post('/', async (req, res) => {
-  const { title, description } = req.body;
-  if (!title || title.trim() === '') {
-    return res.status(400).json({ error: 'Title is required' });
+router.get("/deleted", async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      "SELECT * FROM tasks WHERE deleted_at IS NOT NULL ORDER BY deleted_at DESC"
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
   }
+});
+
+router.post("/", async (req, res) => {
+  const { title, description } = req.body;
+  if (!title || title.trim() === "")
+    return res.status(400).json({ error: "Title is required" });
 
   try {
-    const sql = 'INSERT INTO tasks (title, description) VALUES (?, ?)';
+    const sql = "INSERT INTO tasks (title, description) VALUES (?, ?)";
     const [result] = await db.query(sql, [title, description || null]);
-    const [newTask] = await db.query('SELECT * FROM tasks WHERE id = ?', [result.insertId]);
+    const [newTask] = await db.query("SELECT * FROM tasks WHERE id = ?", [
+      result.insertId,
+    ]);
     res.status(201).json(newTask[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to create task' });
+    res.status(500).json({ error: "Failed to create task" });
   }
 });
 
-// PUT update task
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, description, status } = req.body;
 
   try {
     const updates = [];
     const values = [];
-
-    if (title !== undefined) { updates.push('title = ?'); values.push(title); }
-    if (description !== undefined) { updates.push('description = ?'); values.push(description); }
-    if (status !== undefined) { updates.push('status = ?'); values.push(status); }
-
-    if (updates.length === 0) {
-      return res.status(400).json({ error: 'No fields to update' });
+    if (title !== undefined) {
+      updates.push("title = ?");
+      values.push(title);
     }
+    if (description !== undefined) {
+      updates.push("description = ?");
+      values.push(description);
+    }
+    if (status !== undefined) {
+      updates.push("status = ?");
+      values.push(status);
+    }
+    if (updates.length === 0)
+      return res.status(400).json({ error: "No fields to update" });
 
     values.push(id);
-    const sql = `UPDATE tasks SET ${updates.join(', ')} WHERE id = ?`;
+    const sql = `UPDATE tasks SET ${updates.join(
+      ", "
+    )} WHERE id = ? AND deleted_at IS NULL`;
     const [result] = await db.query(sql, values);
+    if (result.affectedRows === 0)
+      return res.status(404).json({ error: "Task not found" });
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Task not found' });
-    }
-
-    const [updated] = await db.query('SELECT * FROM tasks WHERE id = ?', [id]);
+    const [updated] = await db.query("SELECT * FROM tasks WHERE id = ?", [id]);
     res.json(updated[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to update task' });
+    res.status(500).json({ error: "Failed to update task" });
   }
 });
 
-// DELETE task
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [result] = await db.query('DELETE FROM tasks WHERE id = ?', [id]);
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Task not found' });
-    }
-
+    const [result] = await db.query(
+      "UPDATE tasks SET deleted_at = NOW() WHERE id = ? AND deleted_at IS NULL",
+      [id]
+    );
+    if (result.affectedRows === 0)
+      return res
+        .status(404)
+        .json({ error: "Task not found or already deleted" });
     res.status(204).end();
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to delete task' });
+    res.status(500).json({ error: "Failed to delete task" });
+  }
+});
+
+router.put("/:id/restore", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [result] = await db.query(
+      "UPDATE tasks SET deleted_at = NULL WHERE id = ? AND deleted_at IS NOT NULL",
+      [id]
+    );
+    if (result.affectedRows === 0)
+      return res.status(404).json({ error: "Task not found or not deleted" });
+
+    const [task] = await db.query("SELECT * FROM tasks WHERE id = ?", [id]);
+    res.json(task[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to restore task" });
   }
 });
 
