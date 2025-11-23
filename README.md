@@ -80,7 +80,6 @@ OrganizAT is a comprehensive task management system developed as part of CSE 362
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/` | Welcome message / API info |
-| GET | `/health` | Health check endpoint |
 | GET | `/tasks` | Retrieve all tasks |
 | GET | `/task/:id` | Retrieve a specific task by ID |
 | POST | `/tasks` | Create a new task |
@@ -103,12 +102,12 @@ OrganizAT is a comprehensive task management system developed as part of CSE 362
   - [x] Implement basic JSON responses
   - [x] Add error handling for invalid requests
 
-- [ ] **LAB 3**: Integrate MySQL Database for Basic Task Storage and Operations
-  - [ ] Install MySQL
-  - [ ] Configure mysql2 package
-  - [ ] Set up connection to MySQL
-  - [ ] Write raw SQL queries for task CRUD operations
-  - [ ] Build a GET route to retrieve tasks from the database
+- [x] **LAB 3**: Integrate MySQL Database for Basic Task Storage and Operations
+  - [x] Install MySQL
+  - [x] Configure mysql2 package
+  - [x] Set up connection to MySQL
+  - [x] Write raw SQL queries for task CRUD operations
+  - [x] Build a GET route to retrieve tasks from the database
 
 - [ ] **LAB 4**: Basic API and Database Integration Test
   - [ ] Build a POST endpoint for tasks
