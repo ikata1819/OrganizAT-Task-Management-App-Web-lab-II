@@ -9,3 +9,102 @@
     at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
     at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
     at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
+2025-11-24 20:10:45 [ERROR]: Error: Access denied for user ''@'localhost' (using password: NO)
+    at PromisePool.query (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\mysql2\lib\promise\pool.js:36:22)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\src\routes\tasks.js:15:31
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:117:3)
+    at handle (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
+    at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
+2025-11-24 20:18:03 [ERROR]: Error: Access denied for user ''@'localhost' (using password: NO)
+    at PromisePool.query (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\mysql2\lib\promise\pool.js:36:22)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\src\routes\tasks.js:15:31
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:117:3)
+    at handle (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
+    at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
+2025-11-24 20:18:08 [ERROR]: Error: Access denied for user ''@'localhost' (using password: NO)
+    at PromisePool.query (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\mysql2\lib\promise\pool.js:36:22)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\src\routes\tasks.js:15:31
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:117:3)
+    at handle (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
+    at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
+2025-11-24 20:20:54 [ERROR]: Error: Access denied for user ''@'localhost' (using password: NO)
+    at PromisePool.query (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\mysql2\lib\promise\pool.js:36:22)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\src\routes\tasks.js:15:31
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:117:3)
+    at handle (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
+    at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
+2025-11-24 20:20:56 [ERROR]: Error: Access denied for user ''@'localhost' (using password: NO)
+    at PromisePool.query (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\mysql2\lib\promise\pool.js:36:22)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\src\routes\tasks.js:15:31
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:117:3)
+    at handle (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
+    at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
+2025-11-24 20:24:23 [ERROR]: Error: Access denied for user ''@'localhost' (using password: NO)
+    at PromisePool.query (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\mysql2\lib\promise\pool.js:36:22)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\src\routes\tasks.js:16:31
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:117:3)
+    at handle (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
+    at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
+2025-11-24 20:25:14 [ERROR]: Error: Access denied for user ''@'localhost' (using password: NO)
+    at PromisePool.query (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\mysql2\lib\promise\pool.js:36:22)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\src\routes\tasks.js:16:31
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:117:3)
+    at handle (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
+    at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
+2025-11-24 20:28:31 [ERROR]: Error: Access denied for user ''@'localhost' (using password: NO)
+    at PromisePool.query (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\mysql2\lib\promise\pool.js:36:22)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\src\routes\tasks.js:16:31
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:117:3)
+    at handle (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
+    at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
+2025-11-24 20:28:32 [ERROR]: Error: Access denied for user ''@'localhost' (using password: NO)
+    at PromisePool.query (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\mysql2\lib\promise\pool.js:36:22)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\src\routes\tasks.js:16:31
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\route.js:117:3)
+    at handle (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\lib\layer.js:152:17)
+    at S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:295:15
+    at processParams (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:582:12)
+    at next (S:\CSE 3-2\Web lab II\OrganizAT-Task-manager\node_modules\router\index.js:291:5)
