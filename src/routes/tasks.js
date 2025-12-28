@@ -1,159 +1,93 @@
-require('dotenv').config();
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const db = require("../config/db");
-const logger = require('../logs/logger');
 
-router.get("/", async (req, res) => {
+// Import Task model
+const { Task } = require('../../models');
+
+/**
+ * GET all tasks
+ */
+router.get('/', async (req, res) => {
   try {
-    const q_title = req.query.q;
-    const page = parseInt(req.query.page) || 1;
-    let limit = parseInt(req.query.limit) || 10;
-    if (limit > 50) limit = 50;
-    const offset = (page - 1) * limit;
+    const tasks = await Task.findAll();
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-    if (!q_title) {
-      const [rows] = await db.query(
-        "SELECT * FROM tasks WHERE deleted_at IS NULL ORDER BY created_at DESC, id DESC LIMIT ? OFFSET ?",
-        [limit, offset]
-      );
+/**
+ * GET task by ID
+ */
+router.get('/:id', async (req, res) => {
+  try {
+    const task = await Task.findByPk(req.params.id);
 
-      const [[countResult]] = await db.query(
-        "SELECT COUNT(*) AS total FROM tasks WHERE deleted_at IS NULL"
-      );
-
-      const totalTasks = countResult.total;
-      const totalPages = Math.ceil(totalTasks / limit);
-
-      res.json({
-        totalTasks,
-        totalPages,
-        currentPage: page,
-        limit,
-        data: rows,
-      });
-    } else {
-      const search = `%${q_title}%`;
-      const [rows] = await db.query(
-        "SELECT * FROM tasks WHERE title LIKE ? AND deleted_at IS NULL ORDER BY created_at DESC, id DESC",
-        [search]
-      );
-      res.json(rows);
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
     }
+
+    res.json(task);
   } catch (err) {
-    logger.error(err.stack || err.message || err);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({ error: err.message });
   }
 });
 
-router.get("/deleted", async (req, res) => {
+/**
+ * CREATE new task
+ */
+router.post('/', async (req, res) => {
   try {
-    const [rows] = await db.query(
-      "SELECT * FROM tasks WHERE deleted_at IS NOT NULL ORDER BY deleted_at DESC"
-    );
-    res.json(rows);
-  } catch (err) {
-    logger.error(err.stack || err.message || err);
+    const task = await Task.create({
+      title: req.body.title,
+      description: req.body.description,
+      completed: req.body.completed
+    });
 
-    res.status(500).json({ error: "Database error" });
+    res.status(201).json(task);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 });
 
-router.post("/", async (req, res) => {
-  const { title, description } = req.body;
-  if (!title || title.trim() === "")
-    return res.status(400).json({ error: "Title is required" });
-
+/**
+ * UPDATE task
+ */
+router.put('/:id', async (req, res) => {
   try {
-    const sql = "INSERT INTO tasks (title, description) VALUES (?, ?)";
-    const [result] = await db.query(sql, [title, description || null]);
-    const [newTask] = await db.query("SELECT * FROM tasks WHERE id = ?", [
-      result.insertId,
-    ]);
-    res.status(201).json(newTask[0]);
-  } catch (err) {
-    logger.error(err.stack || err.message || err);
+    const task = await Task.findByPk(req.params.id);
 
-    res.status(500).json({ error: "Failed to create task" });
-  }
-});
-
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { title, description, status } = req.body;
-
-  try {
-    const updates = [];
-    const values = [];
-    if (title !== undefined) {
-      updates.push("title = ?");
-      values.push(title);
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
     }
-    if (description !== undefined) {
-      updates.push("description = ?");
-      values.push(description);
-    }
-    if (status !== undefined) {
-      updates.push("status = ?");
-      values.push(status);
-    }
-    if (updates.length === 0)
-      return res.status(400).json({ error: "No fields to update" });
 
-    values.push(id);
-    const sql = `UPDATE tasks SET ${updates.join(
-      ", "
-    )} WHERE id = ? AND deleted_at IS NULL`;
-    const [result] = await db.query(sql, values);
-    if (result.affectedRows === 0)
-      return res.status(404).json({ error: "Task not found" });
+    await task.update({
+      title: req.body.title,
+      description: req.body.description,
+      completed: req.body.completed
+    });
 
-    const [updated] = await db.query("SELECT * FROM tasks WHERE id = ?", [id]);
-    res.json(updated[0]);
+    res.json(task);
   } catch (err) {
-    logger.error(err.stack || err.message || err);
-
-    res.status(500).json({ error: "Failed to update task" });
+    res.status(400).json({ error: err.message });
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-
+/**
+ * DELETE task
+ */
+router.delete('/:id', async (req, res) => {
   try {
-    const [result] = await db.query(
-      "UPDATE tasks SET deleted_at = NOW() WHERE id = ? AND deleted_at IS NULL",
-      [id]
-    );
-    if (result.affectedRows === 0)
-      return res
-        .status(404)
-        .json({ error: "Task not found or already deleted" });
-    res.status(204).end();
+    const task = await Task.findByPk(req.params.id);
+
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    await task.destroy();
+    res.json({ message: 'Task deleted successfully' });
   } catch (err) {
-    logger.error(err.stack || err.message || err);
-
-    res.status(500).json({ error: "Failed to delete task" });
-  }
-});
-
-router.put("/:id/restore", async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const [result] = await db.query(
-      "UPDATE tasks SET deleted_at = NULL WHERE id = ? AND deleted_at IS NOT NULL",
-      [id]
-    );
-    if (result.affectedRows === 0)
-      return res.status(404).json({ error: "Task not found or not deleted" });
-
-    const [task] = await db.query("SELECT * FROM tasks WHERE id = ?", [id]);
-    res.json(task[0]);
-  } catch (err) {
-    logger.error(err.stack || err.message || err);
-
-    res.status(500).json({ error: "Failed to restore task" });
+    res.status(500).json({ error: err.message });
   }
 });
 

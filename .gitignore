@@ -1,2 +1,27 @@
-node_modules
+# Node dependencies
+node_modules/
+
+# Environment variables
 .env
+
+# Logs
+src/logs/
+*.log
+
+# Sequelize CLI metadata
+sequelize-meta.json
+
+# Build/dist folders (if any)
+dist/
+build/
+
+# IDE / editor configs
+.vscode/
+.idea/
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# NPM lock (optional if you want others to use the same version)
+# package-lock.json
